@@ -1,6 +1,6 @@
 {
   "name": "yandex-gpt-writer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple wrapper for interacting with the YandexGPT API.",
   "main": "lib/index.js",
   "type": "module",
