@@ -1,0 +1,29 @@
+{
+    "name": "yandex-gpt-writer",
+    "version": "1.0.0",
+    "description": "A simple wrapper for interacting with the YandexGPT API.",
+    "main": "yandex-writer.js",
+    "type": "module",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+      "yandex",
+      "gpt",
+      "api",
+      "llm",
+      "node",
+      "simple",
+      "faster"
+    ],
+    "author": "miwist",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/miwist/yandex-gpt-writer.git"
+    },
+    "bugs": {
+      "url": "https://github.com/miwist/yandex-gpt-writer/issues"
+    },
+    "homepage": "https://github.com/miwist/yandex-gpt-writer#readme"
+  }
