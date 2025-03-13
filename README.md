@@ -26,6 +26,8 @@ npm install yandex-gpt-writer
 | Название                        | Описание                                                          |
 | ------------------------------- | ----------------------------------------------------------------- |
 | `getIamToken()`                 | Асинхронно получает IAM токен.                                    |
+| `setIamTokenApiUrl()`           | Устанавливает iamTokenApiUrl.                                     |
+| `setApiUrl()`                   | Устанавливает apiUrl.                                             |
 | `setModelUri(modelUri)`         | Устанавливает URI модели.                                         |
 | `setCompletionOptions(options)` | Устанавливает опции завершения.                                   |
 | `getCompletionOptions()`        | Возвращает текущие опции завершения.                              |
@@ -72,6 +74,10 @@ try {
   console.error("Произошла ошибка:", error);
 }
 ```
+### Связаться со мной
+
+Мой [telegram](https://t.me/miwist)
+
 
 # Yandex GPT Writer [ENG]
 
@@ -102,6 +108,8 @@ npm install yandex-gpt-writer
 | Title                           | Description                                                              |
 | ------------------------------- | ------------------------------------------------------------------------ |
 | `getIamToken()`                 | Asynchronously receives an IAM token.                                    |
+| `setIamTokenApiUrl()`           | Sets iamTokenApiUrl.                                                     |
+| `setApiUrl()`                   | Sets apiUrl.                                                             |
 | `setModelUri(modelUri)`         | Sets the URI of the model.                                               |
 | `setCompletionOptions(options)` | Sets completion options.                                                 |
 | `getCompletionOptions()`        | Returns the current completion options.                                  |
@@ -128,16 +136,16 @@ writer.modelUri = `llm@${writer.catalogId}/yandex-lite`; // (Optional) or any ot
 writer.setCompletionOptions({ temperature: 0.7, maxTokens: 500 });
 
 // 4. Adding messages to context
-writer.addMessage({ role: "system", text: "Ты - полезный ассистент." });
+writer.addMessage({ role: "system", text: "You are a useful assistant." });
 writer.addMessage({
   role: "user",
-  text: "Напиши небольшое стихотворение о весне.",
+  text: "Write a short poem about spring.",
 });
 
 // Or we set the entire array of messages at once
 writer.setMessages([
-  { role: "system", text: "Ты - полезный ассистент." },
-  { role: "user", text: "Напиши небольшое стихотворение о весне." },
+  { role: "system", text: "You are a useful assistant." },
+  { role: "user", text: "Write a short poem about spring." },
 ]);
 
 // 5. We request a response from YandexGPT
@@ -148,3 +156,6 @@ try {
   console.error("An error occurred:", error);
 }
 ```
+### Сontact me
+
+My [telegram](https://t.me/miwist)
