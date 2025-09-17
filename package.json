@@ -1,8 +1,7 @@
 {
   "name": "yandex-gpt-writer",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "A simple wrapper for interacting with the YandexGPT API.",
-  "type": "module",
   "main": "lib/index.js",
   "scripts": {
     "start": "node index.js",
@@ -11,11 +10,11 @@
   "keywords": [
     "yandex",
     "gpt",
-    "api",
+    "yandexgpt",
     "llm",
-    "node",
-    "simple",
-    "faster"
+    "nodejs",
+    "api",
+    "cloud"
   ],
   "author": "miwist",
   "license": "MIT",
