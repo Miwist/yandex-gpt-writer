@@ -1,9 +1,10 @@
 # Yandex GPT Writer [RUS]
 
 Простая и надёжная библиотека для работы с Yandex GPT через Yandex Cloud API.
-Автоматическое обновление IAM-токена каждые 55 минут ✅
-Поддержка Node.js ✅
-Zero-dependency ✅
+
+1. Автоматическое обновление IAM-токена каждые 55 минут ✅
+2. Поддержка Node.js ✅
+3. Zero-dependency ✅
 
 ## Установка
 
