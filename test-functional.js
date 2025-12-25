@@ -47,7 +47,7 @@ dotenv.config();
   console.log("=== Генерация аудио ===");
   try {
     const audioText = "Привет! Это тестовое аудио от Yandex GPT.";
-    const audioBuffer = await writer.audio.synthesize(audioText);x
+    const audioBuffer = await writer.audio.synthesize(audioText);
 
     fs.writeFileSync("audio.mp3", audioBuffer);
     console.log("Аудио сохранено в audio.mp3");

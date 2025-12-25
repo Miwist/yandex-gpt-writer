@@ -6,14 +6,11 @@ export class ImageHandler {
   private tokenManager: TokenManager;
   private catalogId?: string;
 
-  constructor(config: YandexGPTWriterConfig) {
+  constructor(config: YandexGPTWriterConfig, tokenManager: TokenManager) {
     if (!config.oauthToken) {
       throw new Error("OAuth token is required");
     }
-    this.tokenManager = new TokenManager(
-      config.oauthToken,
-      config.iamTokenApiUrl
-    );
+    this.tokenManager = tokenManager;
     this.catalogId = config.catalogId;
   }
 
