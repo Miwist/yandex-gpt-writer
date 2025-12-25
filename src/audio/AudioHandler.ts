@@ -1,0 +1,48 @@
+import { TokenManager } from "../core/TokenManager";
+import { YandexGPTWriterConfig } from "../core/types";
+
+export class AudioHandler {
+  private tokenManager: TokenManager;
+  private ttsApiUrl: string;
+  private sttApiUrl: string;
+
+  constructor(config: YandexGPTWriterConfig) {
+    if (!config.oauthToken) throw new Error("OAuth token is required");
+    this.tokenManager = new TokenManager(config.oauthToken, config.iamTokenApiUrl);
+    this.ttsApiUrl = config.apiUrl || "https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize";
+    this.sttApiUrl = config.apiUrl || "https://stt.api.cloud.yandex.net/speech/v1/stt:recognize";
+  }
+
+  /** Text to speech: возвращает Uint8Array аудиофайла */
+  public async synthesize(text: string, voice: string = "alena"): Promise<Uint8Array> {
+    const token = await this.tokenManager.getToken();
+    const response = await fetch(this.ttsApiUrl, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ text, voice })
+    });
+
+    const arrayBuffer = await response.arrayBuffer();
+
+    return new Uint8Array(arrayBuffer);
+  }
+
+  public async recognize(audioData: ArrayBuffer, language: string = "ru-RU"): Promise<string> {
+    const token = await this.tokenManager.getToken();
+    const response = await fetch(this.sttApiUrl, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/octet-stream"
+      },
+      body: audioData
+    });
+
+    const data = await response.json();
+
+    return data.result ?? "";
+  }
+}
