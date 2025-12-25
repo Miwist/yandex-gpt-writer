@@ -1,4 +1,3 @@
-
 import { TokenManager } from "../core/TokenManager";
 import { YandexGPTWriterConfig } from "../core/types";
 
@@ -6,11 +5,17 @@ export class ImageHandler {
   private tokenManager: TokenManager;
   private catalogId?: string;
 
-  constructor(config: YandexGPTWriterConfig, tokenManager: TokenManager) {
-    if (!config.oauthToken) {
-      throw new Error("OAuth token is required");
+  constructor(config: YandexGPTWriterConfig, tokenManager?: TokenManager) {
+    if (!tokenManager) {
+      if (!config.oauthToken) throw new Error("OAuth token is required");
+      this.tokenManager = new TokenManager(
+        config.oauthToken,
+        config.iamTokenApiUrl
+      );
+    } else {
+      this.tokenManager = tokenManager;
     }
-    this.tokenManager = tokenManager;
+
     this.catalogId = config.catalogId;
   }
 
@@ -42,7 +47,9 @@ export class ImageHandler {
 
     if (!genResponse.ok) {
       const text = await genResponse.text();
-      throw new Error(`Image API Error: ${genResponse.status} ${genResponse.statusText} - ${text}`);
+      throw new Error(
+        `Image API Error: ${genResponse.status} ${genResponse.statusText} - ${text}`
+      );
     }
 
     const { id: operationId } = await genResponse.json();
@@ -59,14 +66,20 @@ export class ImageHandler {
 
       if (!resultResponse.ok) {
         const errorText = await resultResponse.text();
-        throw new Error(`Image operation error: ${resultResponse.status} ${resultResponse.statusText} - ${errorText}`);
+        throw new Error(
+          `Image operation error: ${resultResponse.status} ${resultResponse.statusText} - ${errorText}`
+        );
       }
 
       const result = await resultResponse.json();
 
       if (result.done) {
         if (!result.response?.image) {
-          throw new Error(`Image generation failed or returned no image: ${JSON.stringify(result)}`);
+          throw new Error(
+            `Image generation failed or returned no image: ${JSON.stringify(
+              result
+            )}`
+          );
         }
         return result.response.image;
       }

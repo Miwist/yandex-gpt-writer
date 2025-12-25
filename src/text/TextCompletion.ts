@@ -13,15 +13,23 @@ export class TextCompletion {
   private apiUrl: string;
   private tokenManager: TokenManager;
 
-  constructor(config: YandexGPTWriterConfig, tokenManager: TokenManager) {
-    if (!config.oauthToken) throw new Error("OAuth token is required");
+  constructor(config: YandexGPTWriterConfig, tokenManager?: TokenManager) {
+    if (!tokenManager) {
+      if (!config.oauthToken) throw new Error("OAuth token is required");
+      this.tokenManager = new TokenManager(
+        config.oauthToken,
+        config.iamTokenApiUrl
+      );
+    } else {
+      this.tokenManager = tokenManager;
+    }
+
     this.catalogId = config.catalogId || "";
     this.apiUrl =
       config.apiUrl ||
       "https://llm.api.cloud.yandex.net/foundationModels/v1/completion";
     this.modelUri = config.modelUri || null;
     this.completionOptions = { stream: false, temperature: 1, maxTokens: 2000 };
-    this.tokenManager = tokenManager;
   }
 
   public addMessage(message: Message) {

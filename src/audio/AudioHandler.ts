@@ -5,10 +5,23 @@ export class AudioHandler {
   private tokenManager: TokenManager;
   private ttsApiUrl: string;
   private sttApiUrl: string;
+  private catalogId: string;
 
-  constructor(config: YandexGPTWriterConfig, tokenManager: TokenManager) {
-    if (!config.oauthToken) throw new Error("OAuth token is required");
-    this.tokenManager = tokenManager;
+  constructor(config: YandexGPTWriterConfig, tokenManager?: TokenManager) {
+    if (!tokenManager) {
+      if (!config.oauthToken) throw new Error("OAuth token is required");
+      this.tokenManager = new TokenManager(
+        config.oauthToken,
+        config.iamTokenApiUrl
+      );
+    } else {
+      this.tokenManager = tokenManager;
+    }
+
+    if (!config.catalogId) throw new Error("catalogId is required");
+
+    this.catalogId = config.catalogId;
+
     this.ttsApiUrl =
       config.apiUrl ||
       "https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize";
@@ -47,7 +60,8 @@ export class AudioHandler {
       `${this.sttApiUrl}` +
       `?lang=${language}` +
       `&format=lpcm` +
-      `&sampleRateHertz=16000`;
+      `&sampleRateHertz=16000` +
+      `&folderId=${this.catalogId}`;
 
     const response = await fetch(url, {
       method: "POST",
