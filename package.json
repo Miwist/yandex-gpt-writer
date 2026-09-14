@@ -1,21 +1,26 @@
 {
   "name": "yandex-gpt-writer",
-  "version": "1.2.3",
-  "description": "A simple wrapper for interacting with the YandexGPT API.",
-  "main": "lib/index.js",
-  "module": "lib/index.mjs",
-  "types": "lib/index.d.ts",
+  "version": "1.2.4",
+  "description": "Клиент Yandex GPT / Speech / Art для Node.js (TypeScript)",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
   "exports": {
-    "require": "./lib/index.js",
-    "import": "./lib/index.mjs"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    }
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run build && node --test tests/*.test.js",
+    "prepublishOnly": "npm test"
   },
   "files": [
     "lib/**/*",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "keywords": [
     "yandex",
@@ -24,18 +29,23 @@
     "llm",
     "nodejs",
     "api",
-    "cloud"
+    "cloud",
+    "tts",
+    "stt"
   ],
   "author": "miwist",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/miwist/yandex-gpt-writer.git"
+    "url": "https://github.com/Miwist/yandex-gpt-writer"
   },
   "bugs": {
-    "url": "https://github.com/miwist/yandex-gpt-writer/issues"
+    "url": "https://github.com/Miwist/yandex-gpt-writer/issues"
   },
-  "homepage": "https://github.com/miwist/yandex-gpt-writer#readme",
+  "homepage": "https://github.com/Miwist/yandex-gpt-writer#readme",
   "devDependencies": {
     "typescript": "^5.9.3",
     "dotenv": "^17.2.3"

@@ -16,4 +16,8 @@ export interface YandexGPTWriterConfig {
   apiUrl?: string;
   modelUri?: string;
   iamTokenApiUrl?: string;
+  /** URL синтеза речи (TTS). Не путать с apiUrl текстовой модели. */
+  ttsApiUrl?: string;
+  /** URL распознавания речи (STT). */
+  sttApiUrl?: string;
 }

@@ -56,6 +56,7 @@ export class TextCompletion {
     const lastUser = [...this.messages]
       .reverse()
       .find((m) => m.role === "user");
+
     if (!lastUser || lastUser.text.trim().length < 3) {
       throw new Error(
         `User message too short to generate response: "${lastUser?.text}"`
@@ -76,6 +77,13 @@ export class TextCompletion {
         messages: this.messages,
       }),
     });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Completion request failed: ${response.status} ${errorText}`
+      );
+    }
 
     const data = await response.json();
     const answer = data?.result?.alternatives?.[0]?.message;

@@ -23,10 +23,10 @@ export class AudioHandler {
     this.catalogId = config.catalogId;
 
     this.ttsApiUrl =
-      config.apiUrl ||
+      config.ttsApiUrl ||
       "https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize";
     this.sttApiUrl =
-      config.apiUrl ||
+      config.sttApiUrl ||
       "https://stt.api.cloud.yandex.net/speech/v1/stt:recognize";
   }
 
@@ -36,17 +36,27 @@ export class AudioHandler {
     voice: string = "alena"
   ): Promise<Uint8Array> {
     const token = await this.tokenManager.getToken();
+
+    const params = new URLSearchParams();
+    params.append("text", text);
+    params.append("voice", voice);
+    params.append("folderId", this.catalogId);
+
     const response = await fetch(this.ttsApiUrl, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: JSON.stringify({ text, voice }),
+      body: params.toString(),
     });
 
-    const arrayBuffer = await response.arrayBuffer();
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`TTS request failed: ${response.status} ${errorText}`);
+    }
 
+    const arrayBuffer = await response.arrayBuffer();
     return new Uint8Array(arrayBuffer);
   }
 
@@ -71,6 +81,11 @@ export class AudioHandler {
       },
       body: audioData,
     });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`STT request failed: ${response.status} ${errorText}`);
+    }
 
     const data = await response.json();
 

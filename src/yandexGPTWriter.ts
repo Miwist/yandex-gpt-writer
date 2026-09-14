@@ -2,13 +2,9 @@ import { TokenManager } from './core/TokenManager';
 import { ImageHandler } from './image/ImageHandler';
 import { AudioHandler } from './audio/AudioHandler';
 import { TextCompletion } from './text/TextCompletion';
+import type { YandexGPTWriterConfig } from './core/types';
 
-export interface YandexGPTWriterConfig {
-  oauthToken: string;
-  catalogId?: string;
-  apiUrl?: string;
-  iamTokenApiUrl?: string;
-}
+export type { YandexGPTWriterConfig };
 
 export class YandexGPTWriter {
   public text: TextCompletion;
@@ -28,5 +24,9 @@ export class YandexGPTWriter {
 
   public async getToken(): Promise<string> {
     return this.tokenManager.getToken();
+  }
+
+  public destroy(): void {
+    this.tokenManager.destroy();
   }
 }
