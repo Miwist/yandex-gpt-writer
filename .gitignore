@@ -28,3 +28,7 @@ logs/
 .vscode/
 .idea/
 *.sublime-workspace
+
+.cursor/
+AGENTS.md
+.cursorrules

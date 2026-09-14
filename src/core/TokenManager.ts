@@ -45,6 +45,13 @@ export class TokenManager {
         body: JSON.stringify({ yandexPassportOauthToken: this.oauthToken }),
       });
 
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          `IAM token request failed: ${response.status} ${errorText}`
+        );
+      }
+
       const data = await response.json();
 
       if (!data.iamToken) {
@@ -71,6 +78,11 @@ export class TokenManager {
         console.error("Failed to refresh IAM token:", err)
       );
     }, 55 * 60 * 1000);
+
+    // Не удерживать процесс Node из‑за фонового обновления токена
+    if (typeof this.refreshTimer.unref === "function") {
+      this.refreshTimer.unref();
+    }
   }
 
   public destroy() {

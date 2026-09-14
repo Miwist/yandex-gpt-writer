@@ -1,5 +1,13 @@
 # Yandex GPT Writer [RUS|ENG]
 
+[![npm version](https://img.shields.io/npm/v/yandex-gpt-writer?color=cb3837&logo=npm)](https://www.npmjs.com/package/yandex-gpt-writer)
+[![npm downloads](https://img.shields.io/npm/dm/yandex-gpt-writer)](https://www.npmjs.com/package/yandex-gpt-writer)
+[![npm total downloads](https://img.shields.io/npm/dt/yandex-gpt-writer)](https://www.npmjs.com/package/yandex-gpt-writer)
+[![CI](https://github.com/Miwist/yandex-gpt-writer/actions/workflows/ci.yml/badge.svg)](https://github.com/Miwist/yandex-gpt-writer/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/npm/l/yandex-gpt-writer)](https://github.com/Miwist/yandex-gpt-writer/blob/main/LICENSE)
+[![Node.js](https://img.shields.io/node/v/yandex-gpt-writer?logo=node.js)](https://nodejs.org/)
+
+
 Простая и надёжная библиотека для работы с Yandex GPT через Yandex Cloud API.
 An easy-to-use and reliable library for working with Yandex GPT via Yandex Cloud API.
 
@@ -127,3 +135,7 @@ console.log("Длина аудиобуфера:", audioBuffer.length);
 ### Связаться со мной
 
 Мой [telegram](https://t.me/miwist)
+
+## Разработка
+
+Процесс issue → PR → публикация в npm: [docs/workflow.md](./docs/workflow.md).
